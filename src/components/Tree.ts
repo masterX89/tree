@@ -2,7 +2,12 @@ import { defineComponent, h, ref } from 'vue'
 
 export default defineComponent({
   name: 'Tree',
-  props: {},
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
   setup(props) {
     const visible = ref('none')
     function handleClick() {
@@ -18,7 +23,9 @@ export default defineComponent({
     }
   },
   render() {
-    const { visible, handleClick } = this
+    const { visible, handleClick, data } = this
+    // TODO: Remove this when we have TreeNode and TreeContent
+    console.log(data)
     return h('div', {}, [
       h('li', {}, [h('span', 'aaa')]),
       h(
