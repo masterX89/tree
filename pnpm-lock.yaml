@@ -2,10 +2,12 @@ lockfileVersion: 5.3
 
 specifiers:
   '@vue/compiler-sfc': ^3.0.4
+  treemate: ^0.3.10
   vite: ^1.0.0-rc.13
   vue: ^3.0.4
 
 dependencies:
+  treemate: 0.3.10
   vue: 3.2.30
 
 devDependencies:
@@ -1692,6 +1694,10 @@ packages:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
     dev: true
+
+  /treemate/0.3.10:
+    resolution: {integrity: sha512-uxN98H84/zXAkn02rEeip9SNnOR889QIBXfpZnwjaanp8JRElxjdmDaKmVULclrn54J8RcJVCqfeQZsdeMjwow==}
+    dev: false
 
   /tsscmp/1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
