@@ -1,4 +1,5 @@
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, ref, computed } from 'vue'
+import { createTreeMate } from 'treemate'
 
 export default defineComponent({
   name: 'Tree',
@@ -10,6 +11,8 @@ export default defineComponent({
   },
   setup(props) {
     const visible = ref('none')
+    // const treeMateRef = createTreeMate(props.data)
+    const treeMateRef = computed(() => createTreeMate(props.data))
     function handleClick() {
       if (visible.value === 'none') {
         visible.value = 'block'
@@ -17,15 +20,17 @@ export default defineComponent({
         visible.value = 'none'
       }
     }
+    console.log(treeMateRef)
     return {
       visible,
+      tmNodes: computed(() => treeMateRef.value.treeNodes),
       handleClick
     }
   },
   render() {
-    const { visible, handleClick, data } = this
+    const { visible, handleClick, tmNodes } = this
     // TODO: Remove this when we have TreeNode and TreeContent
-    console.log(data)
+    console.log(tmNodes)
     return h('div', {}, [
       h('li', {}, [h('span', 'aaa')]),
       h(
