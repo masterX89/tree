@@ -8,7 +8,6 @@ const TreeNode = defineComponent({
   setup(props) {},
   render() {
     const { treeMateNode } = this
-    console.log('treeMateNode:', treeMateNode)
 
     return h('li', {}, [
       h(

@@ -8,7 +8,6 @@ export default defineComponent({
   setup(props: InputProps) {
     const handleChange = (event: KeyboardEvent) => {
       props.onChange(event.target.value);
-      // console.log(props.value)
     }
 
     return () => (

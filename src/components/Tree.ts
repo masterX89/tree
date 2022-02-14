@@ -22,7 +22,6 @@ export default defineComponent({
         visible.value = 'none'
       }
     }
-    console.log(treeMateRef)
     return {
       visible,
       treeMateNodes: computed(() => treeMateRef.value.treeNodes),
