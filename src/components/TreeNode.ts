@@ -1,10 +1,38 @@
 import { defineComponent, h, render } from 'vue'
 
-export default defineComponent({
+const TreeNode = defineComponent({
   name: 'TreeNode',
-  props: {},
+  props: {
+    treeMateNode: Object
+  },
   setup(props) {},
   render() {
-    return h('li', 'aaa')
+    const { treeMateNode } = this
+    console.log('treeMateNode:', treeMateNode)
+
+    return h('li', {}, [
+      h(
+        'span',
+        {},
+        {
+          default: () => treeMateNode.rawNode.label
+        }
+      ),
+      // TODO: change to `!tmNode.isLeaf && this.expanded && tmNode.children`
+      !treeMateNode.isLeaf
+        ? h(
+            'ul',
+            {},
+            treeMateNode.children.map((child) =>
+              h(TreeNode, {
+                treeMateNode: child,
+                key: child.key
+              })
+            )
+          )
+        : null
+    ])
   }
 })
+
+export default TreeNode
