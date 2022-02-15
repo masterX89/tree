@@ -1,4 +1,5 @@
 import { defineComponent, h, render } from 'vue'
+import TreeNodeSwitcher from './TreeNodeSwitcher'
 
 const TreeNode = defineComponent({
   name: 'TreeNode',
@@ -10,6 +11,7 @@ const TreeNode = defineComponent({
     const { treeMateNode } = this
 
     return h('li', {}, [
+      !treeMateNode.isLeaf ? h(TreeNodeSwitcher) : null,
       h(
         'span',
         {},
