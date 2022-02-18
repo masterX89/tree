@@ -1,6 +1,18 @@
-import { defineComponent, h, ref, computed } from 'vue'
+import {
+  defineComponent,
+  h,
+  ref,
+  computed,
+  PropType,
+  toRef,
+  provide,
+  reactive
+} from 'vue'
 import TreeNode from './TreeNode'
 import { createTreeMate } from 'treemate'
+import { useMergedState } from 'vooks'
+
+import type { Key, TreeInjection, TreeMateNode } from './interface'
 
 export default defineComponent({
   name: 'Tree',
@@ -8,28 +20,57 @@ export default defineComponent({
     data: {
       type: Array,
       default: () => []
+    },
+    expandedKeys: Array as PropType<Key[]>,
+    defaultExpandedKeys: {
+      type: Array as PropType<Key[]>,
+      default: () => []
     }
   },
   setup(props) {
-    const visible = ref('none')
     // TODO: find out different in computed and without computed
     // const treeMateRef = createTreeMate(props.data)
     const treeMateRef = computed(() => createTreeMate(props.data))
-    function handleClick() {
-      if (visible.value === 'none') {
-        visible.value = 'block'
-      } else if (visible.value === 'block') {
-        visible.value = 'none'
+    const uncontrolledExpandedKeysRef = ref(
+      props.defaultExpandedKeys || props.expandedKeys
+    )
+    const controlledExpandedKeysRef = toRef(props, 'expandedKeys')
+    const mergedExpandedKeysRef = useMergedState(
+      controlledExpandedKeysRef,
+      uncontrolledExpandedKeysRef
+    )
+
+    function handleSwitcherClick(treeNode: TreeMateNode): void {
+      // 判断 tree 或者 node 是否为 disabled
+      // if (props.disabled || treeNode.disabled) return
+      const mergedExpandedKeys = mergedExpandedKeysRef.value
+      const index = mergedExpandedKeys.findIndex(
+        (expandKey) => expandKey === treeNode.key
+      )
+      if (~index) {
+        const expandedKeysAfterChange = Array.from(mergedExpandedKeys)
+        expandedKeysAfterChange.splice(index, 1)
+        uncontrolledExpandedKeysRef.value = expandedKeysAfterChange
+      } else {
+        uncontrolledExpandedKeysRef.value = Array.from(
+          mergedExpandedKeys
+        ).concat(treeNode.key)
       }
     }
+
+    provide<TreeInjection>(
+      'Tree',
+      reactive({
+        mergedExpandedKeys: mergedExpandedKeysRef,
+        handleSwitcherClick
+      })
+    )
     return {
-      visible,
-      treeMateNodes: computed(() => treeMateRef.value.treeNodes),
-      handleClick
+      treeMateNodes: computed(() => treeMateRef.value.treeNodes)
     }
   },
   render() {
-    const { visible, handleClick, treeMateNodes } = this
+    const { treeMateNodes } = this
     return h(
       'div',
       {},

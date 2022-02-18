@@ -4,10 +4,12 @@ specifiers:
   '@vue/compiler-sfc': ^3.0.4
   treemate: ^0.3.10
   vite: ^1.0.0-rc.13
+  vooks: ^0.2.12
   vue: ^3.0.4
 
 dependencies:
   treemate: 0.3.10
+  vooks: 0.2.12_vue@3.2.30
   vue: 3.2.30
 
 devDependencies:
@@ -702,6 +704,10 @@ packages:
   /eventemitter3/4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
     dev: true
+
+  /evtd/0.2.3:
+    resolution: {integrity: sha512-tmiT1YUVqFjTY+BSBOAskL83xNx41iUfpvKP6Gcd/xMHjg3mnER98jXGXJyKnxCG19uPc6EhZiUC+MUyvoqCtw==}
+    dev: false
 
   /execa/4.1.0:
     resolution: {integrity: sha512-j5W0//W7f8UxAn8hXVnwG8tLwdiUy4FJLcSupCg6maBYZDpyBvTApK7KyuI4bKj8KOh1r2YH+6ucuYtJv1bTZA==}
@@ -1793,6 +1799,15 @@ packages:
       - ts-node
       - utf-8-validate
     dev: true
+
+  /vooks/0.2.12_vue@3.2.30:
+    resolution: {integrity: sha512-iox0I3RZzxtKlcgYaStQYKEzWWGAduMmq+jS7OrNdQo1FgGfPMubGL3uGHOU9n97NIvfFDBGnpSvkWyb/NSn/Q==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      evtd: 0.2.3
+      vue: 3.2.30
+    dev: false
 
   /vue/3.2.30:
     resolution: {integrity: sha512-ZmTFWVJUX2XADkuOB8GcLTuxnBLogjJBTNVrM7WsTnjqRQ+VR8bLNrvNsbn8vj/LaP5+0WFAPrpngOYE2x+e+Q==}

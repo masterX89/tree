@@ -10,8 +10,8 @@ export default defineComponent({
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         p-id="1445"
-        width="200"
-        height="200"
+        width="12"
+        height="12"
       >
         <path
           d="M511.999488 819.413462 72.8374 204.586538 951.1626 204.586538Z"

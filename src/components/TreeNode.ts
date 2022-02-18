@@ -1,17 +1,39 @@
-import { defineComponent, h, render } from 'vue'
+import { defineComponent, h, inject, PropType } from 'vue'
+import { useMemo } from 'vooks'
 import TreeNodeSwitcher from './TreeNodeSwitcher'
+import type { TreeInjection, TreeMateNode } from './interface'
 
 const TreeNode = defineComponent({
   name: 'TreeNode',
   props: {
-    treeMateNode: Object
+    treeMateNode: {
+      type: Object as PropType<TreeMateNode>,
+      required: true
+    }
   },
-  setup(props) {},
+  setup(props) {
+    const Tree = inject<TreeInjection>('Tree') as TreeInjection
+    const expanded = useMemo(() =>
+      Tree.mergedExpandedKeys.includes(props.treeMateNode.key)
+    )
+    function handleSwitcherClick(): void {
+      Tree.handleSwitcherClick(props.treeMateNode)
+    }
+    return {
+      expanded,
+      handleSwitcherClick
+    }
+  },
   render() {
-    const { treeMateNode } = this
+    const { treeMateNode, handleSwitcherClick, expanded } = this
 
     return h('li', {}, [
-      !treeMateNode.isLeaf ? h(TreeNodeSwitcher) : null,
+      !treeMateNode.isLeaf
+        ? h(TreeNodeSwitcher, {
+            expanded,
+            onClick: handleSwitcherClick
+          })
+        : null,
       h(
         'span',
         {},
@@ -19,8 +41,7 @@ const TreeNode = defineComponent({
           default: () => treeMateNode.rawNode.label
         }
       ),
-      // TODO: change to `!tmNode.isLeaf && this.expanded && tmNode.children`
-      !treeMateNode.isLeaf
+      !treeMateNode.isLeaf && expanded && treeMateNode.children
         ? h(
             'ul',
             {},

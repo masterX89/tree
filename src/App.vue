@@ -2,7 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3.0 + Vite" />
   <Input />
-  <Tree :data="treeData" />
+  <Tree :data="treeData" :defaultExpandedKeys="['40']" />
 </template>
 
 <script>
